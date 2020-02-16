@@ -9,7 +9,7 @@
 
     <!--管理数据源-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-        <property name="driver" value="${jdbc.driver}"/>
+        <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
@@ -25,6 +25,6 @@
 
     <!--代理对象管理-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.davina.core.mapper"/>
+        <property name="basePackage" value="com.davina.core.dao"/>
     </bean>
 </beans>

@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>service_search</artifactId>
+    <packaging>war</packaging>
 
 
     <properties>

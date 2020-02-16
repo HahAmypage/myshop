@@ -45,9 +45,14 @@
             <artifactId>druid</artifactId>
         </dependency>
         <!-- 文件上传组件 -->
+        <!--<dependency>-->
+            <!--<groupId>org.csource.fastdfs</groupId>-->
+            <!--<artifactId>fastdfs</artifactId>-->
+            <!--&lt;!&ndash;<version>1.27-RELEASE</version>&ndash;&gt;-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>org.csource.fastdfs</groupId>
-            <artifactId>fastdfs</artifactId>
+            <groupId>repository.org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>

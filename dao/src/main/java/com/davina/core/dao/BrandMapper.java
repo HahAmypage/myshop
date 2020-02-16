@@ -43,4 +43,11 @@ public interface BrandMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Brand record);
+
+    /**
+     * 根据条件查询
+     * @param brand
+     * @return
+     */
+    List<Brand> selectByExample(Brand brand);
 }
