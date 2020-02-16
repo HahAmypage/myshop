@@ -32,4 +32,6 @@
     <dubbo:consumer timeout="600000" check="false"/>
 
 
+    <!--放行静态资源-->
+    <!--<mvc:default-servlet-handler/>-->
 </beans>

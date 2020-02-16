@@ -1,6 +1,7 @@
 package com.davina.core.controller.brand;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.davina.core.entity.PageResult;
 import com.davina.core.pojo.good.Brand;
 import com.davina.core.service.brand.BrandService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,5 +27,16 @@ public class BrandController {
     public List<Brand> findAll(){
         List<Brand> brandList = brandService.findAll();
         return brandList;
+    }
+
+    /**
+     * 分页查询
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("/findByPage.do")
+    public PageResult findByPage(Integer pageNo,Integer pageSize){
+        return brandService.findByPage(pageNo,pageSize);
     }
 }
