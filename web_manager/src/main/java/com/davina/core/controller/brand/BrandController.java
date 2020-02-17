@@ -2,8 +2,10 @@ package com.davina.core.controller.brand;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.davina.core.entity.PageResult;
-import com.davina.core.pojo.good.Brand;
+import com.davina.core.entity.Result;
+import com.davina.core.pojo.Brand;
 import com.davina.core.service.brand.BrandService;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +38,22 @@ public class BrandController {
      * @return
      */
     @RequestMapping("/findByPage.do")
-    public PageResult findByPage(Integer pageNo,Integer pageSize){
-        return brandService.findByPage(pageNo,pageSize);
+    public PageResult findByPage(Integer pageNo, Integer pageSize, @RequestBody Brand brand){
+        return brandService.findByPage(pageNo,pageSize,brand);
+    }
+
+    /**
+     * 添加品牌
+     * @param brand
+     * @return
+     */
+    @RequestMapping("/add.do")
+    public Result add(@RequestBody Brand brand){
+        try {
+            brandService.add(brand);
+            return new Result(true,"添加成功");
+        }catch (Exception e){
+            return new Result(false,"添加失败");
+        }
     }
 }

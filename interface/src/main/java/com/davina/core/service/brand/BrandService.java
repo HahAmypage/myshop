@@ -1,7 +1,7 @@
 package com.davina.core.service.brand;
 
 import com.davina.core.entity.PageResult;
-import com.davina.core.pojo.good.Brand;
+import com.davina.core.pojo.Brand;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
@@ -25,5 +25,11 @@ public interface BrandService {
      * 分页查询
      * @return
      */
-    PageResult findByPage(Integer pageNo,Integer pageSize);
+    PageResult findByPage(Integer pageNo,Integer pageSize,Brand brand);
+
+    /**
+     * 添加品牌
+     * @param brand
+     */
+    void add(Brand brand);
 }
