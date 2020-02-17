@@ -56,4 +56,42 @@ public class BrandController {
             return new Result(false,"添加失败");
         }
     }
+
+    /**
+     * 根据id查找品牌
+     * @param id
+     * @return
+     */
+    @RequestMapping("/findOne.do")
+    public Brand findOne(Long id){
+        return brandService.findOne(id);
+    }
+
+    /**
+     * 更新品牌
+     * @param brand
+     * @return
+     */
+    @RequestMapping("/update.do")
+    public Result update(@RequestBody Brand brand){
+        try {
+            brandService.update(brand);
+            return new Result(true,"修改成功");
+        }catch (Exception e){
+            return new Result(false,"修改失败");
+        }
+    }
+
+    @RequestMapping("/delete.do")
+    public Result delete(Long[] ids){
+        if (ids.length == 0){
+            return new Result(false,"你还没选中任何选项");
+        }
+        try {
+            brandService.delete(ids);
+            return new Result(true,"删除成功");
+        }catch (Exception e){
+            return new Result(false,"删除失败");
+        }
+    }
 }

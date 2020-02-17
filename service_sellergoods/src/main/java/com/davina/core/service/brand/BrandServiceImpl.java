@@ -1,15 +1,15 @@
 package com.davina.core.service.brand;
 
-        import com.alibaba.dubbo.config.annotation.Service;
-        import com.davina.core.dao.BrandMapper;
-        import com.davina.core.entity.PageResult;
-        import com.davina.core.pojo.Brand;
-        import com.davina.core.pojo.BrandExample;
-        import com.github.pagehelper.Page;
-        import com.github.pagehelper.PageHelper;
-        import org.springframework.transaction.annotation.Transactional;
+import com.alibaba.dubbo.config.annotation.Service;
+import com.davina.core.dao.BrandMapper;
+import com.davina.core.entity.PageResult;
+import com.davina.core.pojo.Brand;
+import com.davina.core.pojo.BrandExample;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import org.springframework.transaction.annotation.Transactional;
 
-        import javax.annotation.Resource;
+import javax.annotation.Resource;
         import java.util.List;
 
 /**
@@ -70,5 +70,36 @@ public class BrandServiceImpl implements BrandService{
     @Override
     public void add(Brand brand) {
         brandMapper.insert(brand);
+    }
+
+    /**
+     * 根据id查询品牌
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Brand findOne(Long id) {
+        return brandMapper.selectByPrimaryKey(id);
+    }
+
+    /**
+     * 更新品牌
+     *
+     * @param brand
+     */
+    @Override
+    public void update(Brand brand) {
+        brandMapper.updateByPrimaryKey(brand);
+    }
+
+    /**
+     * 根据id数组删除品牌
+     *
+     * @param ids
+     */
+    @Override
+    public void delete(Long[] ids) {
+        brandMapper.deleteByPrimaryKeys(ids);
     }
 }

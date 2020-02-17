@@ -32,4 +32,23 @@ public interface BrandService {
      * @param brand
      */
     void add(Brand brand);
+
+    /**
+     * 根据id查询品牌
+     * @param id
+     * @return
+     */
+    Brand findOne(Long id);
+
+    /**
+     * 更新品牌
+     * @param brand
+     */
+    void update(Brand brand);
+
+    /**
+     * 根据id数组删除品牌
+     * @param ids
+     */
+    void delete(Long[] ids);
 }

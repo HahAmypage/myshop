@@ -40,11 +40,11 @@
 				onChange:function () {
 					$scope.reloadList();
 				}
-			}
+			};
 
 			$scope.reloadList = function () {
 				$scope.search();
-			}
+			};
 
 			// 统一使用searchEntity封装查询条件，entity回显对象
 			$scope.searchEntity = {};
@@ -53,11 +53,16 @@
 					$scope.pageConf.totalItems = response.total;
 					$scope.list = response.rows;
 				})
-			}
+			};
 
+			// 添加品牌
 			$scope.add = function () {
 				// 发送请求
-				$http.post("/brand/add.do",$scope.entity).success(function (response) {
+				var url = "/brand/add.do";
+				if ($scope.entity.id != null){
+					url = "/brand/update.do"; // 有id执行修改
+				}
+				$http.post(url,$scope.entity).success(function (response) {
 					if (response.flag){
 						alert(response.message);
 						$scope.reloadList();
@@ -65,7 +70,42 @@
 						alert(response.message);
 					}
 				})
-			}
+			};
+
+			// 根据id查找品牌
+			$scope.findOne = function (id) {
+				$http.get("/brand/findOne.do?id="+id).success(function (response) {
+					$scope.entity = response;
+				})
+			};
+
+			// 复选框操作
+			$scope.selectIds = [];
+			$scope.updateSelectedIds = function ($event,id) {
+				// 判断是否选中获取当前行
+				if ($event.target.checked){
+					// 将id放入数组
+					$scope.selectIds.push(id);
+				}else { // 取消选中
+					// 获取id在数组中的为
+					var index = $scope.selectIds.indexOf(id);
+					// 移除
+					$scope.selectIds.splice(index,1);
+				}
+			};
+			
+			// 批量删除
+			$scope.del = function () {
+				$http.get("/brand/delete.do?ids="+$scope.selectIds).success(function (response) {
+					if (response.flag){
+						alert(response.message);
+						$scope.reloadList();
+						$scope.selectIds = []; // 删除成功后清除原来的id数组
+					}else {
+						alert(response.message);
+					}
+				})
+			};
 		});
 
 	</script>
@@ -88,7 +128,7 @@
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click = "entity={}"><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>           
+                                        <button type="button" class="btn btn-default" title="删除" ng-click = "del();" ><i class="fa fa-trash-o"></i> 删除</button>           
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
@@ -117,12 +157,12 @@
 			                      </thead>
 			                      <tbody>
 			                          <tr ng-repeat="entity in list">
-			                              <td><input  type="checkbox" ></td>			                              
+			                              <td><input  type="checkbox" ng-click = "updateSelectedIds($event, entity.id)" ></td>
 				                          <td>{{entity.id}}</td>
 									      <td>{{entity.name}}</td>
 		                                  <td>{{entity.firstChar}}</td>
 		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"  >修改</button>                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" ng-click = "findOne(entity.id);" >修改</button>
 		                                  </td>
 			                          </tr>
 			                      </tbody>
